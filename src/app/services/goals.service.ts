@@ -6,14 +6,14 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class GoalsService {
-	private static mockData: Goal = { targetWeightInKg: 75 }
+	private mockData: Goal = { targetWeightInKg: 75 }
 	
 	public getGoal(): Observable<Goal> {
-		return of(GoalsService.mockData);
+		return of(this.mockData);
 	}
 	
 	public setGoal(targetWeightInKg: number): Observable<void> {
-		GoalsService.mockData.targetWeightInKg = targetWeightInKg;
+		this.mockData.targetWeightInKg = targetWeightInKg;
 		return of(void 0);
 	}
 }

@@ -1,4 +1,5 @@
 <div class="position-fixed top-0 end-0 p-3" style="z-index: 1090;">
+	{{toastService.toasts.length}}
 	<ngb-toast class="mb-2" *ngFor="let toast of toastService.toasts" (hidden)="toastService.remove(toast)" [class]="toast.classname" [autohide]="toast.autohide" [delay]="toast.delay || 5000" (hidden)="toastService.remove(toast)">
 		<div class="d-flex">
 			<div class="me-2" [ngClass]="{'text-dark':!toast.invert,'text-white':toast.invert}">
