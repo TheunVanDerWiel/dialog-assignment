@@ -1,0 +1,11 @@
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1090;">
+	<ngb-toast class="mb-2" *ngFor="let toast of toastService.toasts" (hidden)="toastService.remove(toast)" [class]="toast.classname" [autohide]="toast.autohide" [delay]="toast.delay || 5000" (hidden)="toastService.remove(toast)">
+		<div class="d-flex">
+			<div class="me-2" [ngClass]="{'text-dark':!toast.invert,'text-white':toast.invert}">
+				<strong *ngIf="toast.title">{{ toast.title }}</strong>
+				<p class="mb-0">{{ toast.message }}</p>
+			</div>
+			<button type="button" class="btn-close me-2 m-auto" [ngClass]="{'btn-close-white':toast.invert}" aria-label="Close" (click)="toastService.remove(toast)"></button>
+		</div>
+	</ngb-toast>
+</div>
