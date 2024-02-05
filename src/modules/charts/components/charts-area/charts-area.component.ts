@@ -3,10 +3,12 @@ import {
     ChangeDetectionStrategy,
     Component,
     ElementRef,
+    Input,
     OnInit,
     ViewChild,
 } from '@angular/core';
 import { Chart } from 'chart.js';
+import { ChartData } from '../../types';
 
 @Component({
     selector: 'sb-charts-area',
@@ -15,6 +17,8 @@ import { Chart } from 'chart.js';
     styleUrls: ['charts-area.component.scss'],
 })
 export class ChartsAreaComponent implements OnInit, AfterViewInit {
+	@Input({ required: true }) chartData!: ChartData;
+	
     @ViewChild('myAreaChart') myAreaChart!: ElementRef<HTMLCanvasElement>;
     chart!: Chart;
 
@@ -25,84 +29,55 @@ export class ChartsAreaComponent implements OnInit, AfterViewInit {
         this.chart = new Chart(this.myAreaChart.nativeElement, {
             type: 'line',
             data: {
-                labels: [
-                    'Mar 1',
-                    'Mar 2',
-                    'Mar 3',
-                    'Mar 4',
-                    'Mar 5',
-                    'Mar 6',
-                    'Mar 7',
-                    'Mar 8',
-                    'Mar 9',
-                    'Mar 10',
-                    'Mar 11',
-                    'Mar 12',
-                    'Mar 13',
-                ],
-                datasets: [
-                    {
-                        label: 'Sessions',
-                        lineTension: 0.3,
-                        backgroundColor: 'rgba(2,117,216,0.2)',
-                        borderColor: 'rgba(2,117,216,1)',
-                        pointRadius: 5,
-                        pointBackgroundColor: 'rgba(2,117,216,1)',
-                        pointBorderColor: 'rgba(255,255,255,0.8)',
-                        pointHoverRadius: 5,
-                        pointHoverBackgroundColor: 'rgba(2,117,216,1)',
-                        pointHitRadius: 50,
-                        pointBorderWidth: 2,
-                        data: [
-                            10000,
-                            30162,
-                            26263,
-                            18394,
-                            18287,
-                            28682,
-                            31274,
-                            33259,
-                            25849,
-                            24159,
-                            32651,
-                            31984,
-                            38451,
-                        ],
-                    },
-                ],
+                labels: this.chartData.labels,
+                datasets: this.chartData.dataSets.map(d => {
+					return {
+	                    label: d.label,
+	                    lineTension: 0.3,
+	                    backgroundColor: 'rgba('+d.color[0]+','+d.color[1]+','+d.color[2]+',0.2)',
+	                    borderColor: 'rgba('+d.color[0]+','+d.color[1]+','+d.color[2]+',1)',
+	                    pointRadius: 5,
+	                    pointBackgroundColor: 'rgba('+d.color[0]+','+d.color[1]+','+d.color[2]+',1)',
+	                    pointBorderColor: 'rgba(255,255,255,0.8)',
+	                    pointHoverRadius: 5,
+	                    pointHoverBackgroundColor: 'rgba('+d.color[0]+','+d.color[1]+','+d.color[2]+',1)',
+	                    pointHitRadius: 50,
+	                    pointBorderWidth: 2,
+	                    data: d.values
+                	};
+                })
             },
             options: {
-                scales: {
-                    xAxes: [
-                        {
-                            time: {
-                                unit: 'day',
-                            },
-                            gridLines: {
-                                display: false,
-                            },
-                            ticks: {
-                                maxTicksLimit: 7,
-                            },
-                        },
-                    ],
-                    yAxes: [
-                        {
-                            ticks: {
-                                min: 0,
-                                max: 40000,
-                                maxTicksLimit: 5,
-                            },
-                            gridLines: {
-                                color: 'rgba(0, 0, 0, .125)',
-                            },
-                        },
-                    ],
-                },
-                legend: {
-                    display: false,
-                },
-            },
-        });
+				scales: {
+		            xAxes: [
+		                {
+		                    time: {
+		                        unit: 'day',
+		                    },
+		                    gridLines: {
+		                        display: false,
+		                    },
+		                    ticks: {
+		                        maxTicksLimit: 7,
+		                    },
+		                },
+		            ],
+		            yAxes: [
+		                {
+		                    ticks: {
+		                        min: 0,
+		                        maxTicksLimit: 5,
+		                    },
+		                    gridLines: {
+		                        color: 'rgba(0, 0, 0, .125)',
+		                    },
+		                },
+		            ],
+				},
+				legend: {
+					display: false
+				}
+			}
+		});
     }
 }

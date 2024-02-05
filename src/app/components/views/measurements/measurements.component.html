@@ -1,1 +1,20 @@
-<p>measurements works!</p>
+<h1 class="mt-4">Mijn gewicht</h1>
+
+<form [formGroup]="weightForm" id="weightForm" (submit)="save()">
+	<div class="mb-3">
+		<label class="form-label" for="inputWeight">Wat is je gewicht vandaag?</label>
+		<div class="input-group" [ngClass]="{'is-invalid':isInvalid(weightForm, 'weight')}">
+			<input class="form-control" id="inputWeight" type="number" formControlName="weight" />
+			<span class="input-group-text">Kg</span>
+		</div>
+		<div class="invalid-feedback">Vul een gewicht in hele kilogrammen in. (Minimaal 10)</div>
+	</div>
+
+	<div class="mb-3">
+		<label class="form-label" for="inputDescription">Toelichting</label>
+		<textarea class="form-control" id="inputDescription" rows="5" formControlName="description" [ngClass]="{'is-invalid':isInvalid(weightForm, 'description')}"></textarea>
+		<div class="invalid-feedback">Vul een toelichting in.</div>
+	</div>
+	
+	<button class="btn btn-primary" type="submit" form="weightForm" [disabled]="!weightForm.valid"><i class="fas fa-check"></i> Opslaan</button>
+</form>

@@ -9,6 +9,8 @@ import { MeasurementsComponent } from './components/views/measurements/measureme
 import { ToastsComponent } from './components/toasts/toasts.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ChartsModule } from 'src/modules/charts/charts.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { NavigationComponent } from './components/navigation/navigation.componen
   imports: [
     BrowserModule,
 	NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

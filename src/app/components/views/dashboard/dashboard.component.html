@@ -1,1 +1,17 @@
-<p>dashboard works!</p>
+<h1 class="mt-4">Mijn gewicht</h1>
+
+<sb-charts-area [chartData]="getChartData()"></sb-charts-area>
+
+<h2>Mijn doelgewicht</h2>
+<p>{{ goal?.targetWeightInKg }} Kg</p>
+
+<h2>Mijn metingen</h2>
+<ul class="list-group">
+	<li class="list-group-item" *ngFor="let measurement of measurements">
+		<div class="row">
+			<div class="col-6">{{ measurement.date.toLocaleDateString() }}</div>
+			<div class="col-6">{{ measurement.weightInKg }} Kg</div>
+			<div class="col-12">{{ measurement.description }}</div>
+		</div>
+	</li>
+</ul>
